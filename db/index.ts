@@ -9,7 +9,7 @@ export interface Db {
 export class DbBootstrapper {
     public exec(): Promise<Db> {
         return Promise.resolve({
-            Messages: new Messages(models.Messages)
+            Messages: new Messages({ model: models.Message })
         });
     }
 }

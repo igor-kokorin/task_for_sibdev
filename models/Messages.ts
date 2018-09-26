@@ -10,10 +10,14 @@ export interface IMessage {
 type SequelizeModel = Model<any, any>;
 
 export class Messages {
-    private model: SequelizeModel;
+    private _model: SequelizeModel;
 
-    constructor(opts: { model: SequelizeModel }) {
-        this.model = opts.model;
+    constructor(options: { model: SequelizeModel }) {
+        if (!options || !options.model) {
+            throw new Error('Sequelize model must be passed to Messages constructor');
+        }
+
+        this._model = options.model;
     }
 
     private mapDbToModel(dbMessage) {
@@ -25,10 +29,10 @@ export class Messages {
     }
 
     public getAll(): Bluebird<IMessage[]> {
-        return this.model.findAll().then(res => res.map((dbMess) => this.mapDbToModel(dbMess)));
+        return this._model.findAll().then(res => res.map((dbMess) => this.mapDbToModel(dbMess)));
     }
 
     public createNew(message: IMessage): Bluebird<IMessage> {
-        return this.model.create(message).then((res) => this.mapDbToModel(res));
+        return this._model.create(message).then((res) => this.mapDbToModel(res));
     }
 }

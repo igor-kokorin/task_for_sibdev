@@ -10,9 +10,5 @@
     "exclude": [
         "node_modules/**/*",
         "prod/**/*"
-    ],
-    "include": [
-        ".env",
-        "**/*.ts"
     ]
 }
