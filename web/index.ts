@@ -10,6 +10,10 @@ export class WebAppBootstrapper {
     private _db: Db;
 
     constructor(options: { database: Db }) {
+        if (!options || !options.database) {
+            throw new Error('Db must be passed to WebAppBootstrapper');
+        }
+
         this._db = options.database;
     }
 
@@ -18,12 +22,10 @@ export class WebAppBootstrapper {
 
         const server = new Server({ host: config.WEB_HOST, port: config.WEB_PORT });
 
-        RegisterViews.register(server).then(() => {
+        return RegisterViews.register(server).then(() => {
             RegisterRoutes.register({ server, db: this._db });
 
             return server.start();
         });
     }
 }
-
-(new WebAppBootstrapper({ database: null })).exec();
