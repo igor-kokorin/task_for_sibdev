@@ -4,9 +4,11 @@
 
 <form method="POST" action="/">
     <label>Name</label>
-    <input type="text">
+    <input name="fullName" type="text">
+    <span>{{ newMessage.errors['fullName'] }}</span>
     <label>Message</label>
-    <input type="text">
+    <input name="text" type="text">
+    <span>{{ newMessage.errors['text'] }}</span>
     <input type="submit">
 </form>
 

@@ -23,8 +23,8 @@ export class RegisterDynamicRoutes {
             path: '/',
             handler: (request: Request, h: ResponseToolkit) => {
                 let handler = new PostMessageHandler({ messagesDb: options.db.Messages });
-                return handler.handle({ message: <IMessage>request.payload }).then((messages) => {
-                    return h.view('index', { messages });
+                return handler.handle({ message: <IMessage>request.payload }).then((res) => {
+                    return h.view('index', { messages: res.messages, newMessage: res.newMessage });
                 });
             }
         });

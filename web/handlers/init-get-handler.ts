@@ -1,4 +1,4 @@
-import { Messages } from '../../models/Messages';
+import { Messages, IMessage } from '../../models/Messages';
 import { DbBootstrapper } from '../../db';
 
 export class InitialGetHandler {

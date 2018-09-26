@@ -25,7 +25,8 @@
     "pretypescript:dev": "npm run install",
     "typescript:dev": "run-p typescriptInWatch NonJsWatch",
     "typescriptInWatch": "tsc -w",
-    "NonJsWatch": "npm-watch copyNonJsFiles"
+    "NonJsWatch": "npm-watch copyNonJsFiles",
+    "migrate": "sequelize db:migrate"
   },
   "author": "Igor Kokorin",
   "license": "ISC",
