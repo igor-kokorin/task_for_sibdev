@@ -3,9 +3,10 @@ import { Db } from '../db';
 import { PostMessageHandler } from './handlers/post-message-handler';
 import { IMessage } from '../models/Messages';
 import { InitialGetHandler } from './handlers/init-get-handler';
+import Promise = require('bluebird');
 
-export class RegisterRoutes {
-    public static register(options: { server: Server, db: Db }) {
+export class RegisterDynamicRoutes {
+    public static register(options: { server: Server, db: Db }): Promise<any> {
         options.server.route({
             method: 'GET',
             path: '/', 
@@ -27,5 +28,7 @@ export class RegisterRoutes {
                 });
             }
         });
+        
+        return Promise.resolve();
     }
 }

@@ -1,10 +1,12 @@
 import { Server } from 'hapi';
 import { Db } from '../db';
-import { RegisterRoutes } from './register-routes';
+import { RegisterDynamicRoutes } from './register-dynamic-routes';
 import { RegisterViews } from './register-views';
+import Promise = require('bluebird');
 
 import path = require('path');
 import dotenv = require('dotenv');
+import { RegisterStaticRoutes } from './register-static-routes';
 
 export class WebAppBootstrapper {
     private _db: Db;
@@ -22,10 +24,10 @@ export class WebAppBootstrapper {
 
         const server = new Server({ host: config.WEB_HOST, port: config.WEB_PORT });
 
-        return RegisterViews.register(server).then(() => {
-            RegisterRoutes.register({ server, db: this._db });
-
-            return server.start();
-        });
+        return Promise.all([
+            RegisterStaticRoutes.register({ server }),
+            RegisterViews.register({ server }),
+            RegisterDynamicRoutes.register({ server, db: this._db })
+        ]).then(() => server.start());
     }
 }
