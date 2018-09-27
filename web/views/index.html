@@ -3,19 +3,41 @@
 {% block content %}
 
 <form method="POST" action="/">
-    <label>Name</label>
-    <input name="fullName" type="text">
-    <span>{{ newMessage.errors['fullName'] }}</span>
-    <label>Message</label>
-    <input name="text" type="text">
-    <span>{{ newMessage.errors['text'] }}</span>
-    <input type="submit">
+    <fieldset class="from-group">
+        <legend>Message</legend>
+        <div class="form-group row">
+            <label class="col-1 col-form-label text-right" for="fullName">Name</label>
+            <div class="col-3">
+                <input class="form-control {% if newMessage.errors and newMessage.errors.fullName  %} is-invalid {% endif %}" id="fullName" name="fullName" type="text">
+                <div class="invalid-feedback">{{ newMessage.errors['fullName'] }}</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-1 col-form-label text-right" for="text">Text</label>
+            <div class="col-3">
+                <input class="form-control {% if newMessage.errors and newMessage.errors.text  %} is-invalid {% endif %}" id="text" name="text" type="text">
+                <div class="invalid-feedback">{{ newMessage.errors['text'] }}</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-1 offset-3">
+                <input class="btn btn-primary" type="submit">
+            </div>
+        </div>
+    </fieldset>
 </form>
 
 {% for message in messages %}
-    <p>{{ message.fullName }} - {{ message.text }}</p>
+    <div class="card mb-4">
+        <div class="card-header">
+            {{ message.fullName }} - ({{ message.date }})
+        </div>
+        <div class="card-body">
+            <p>{{ message.text }}</p>
+        </div>
+    </div>
 {% else %}
-    <p>There is no messages</p>
+    <p class="d1">There is no messages</p>
 {% endfor %}
 
 {% endblock %}

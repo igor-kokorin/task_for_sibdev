@@ -7,4 +7,4 @@ dbBootstrapper.exec().then((database) => {
     return webAppBootstrapper.exec().then(() => {
         console.log('App is launched!');
     });
-})
+});
