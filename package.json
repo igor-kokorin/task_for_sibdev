@@ -18,15 +18,18 @@
     }
   },
   "scripts": {
-    "preinstall": "rimraf prod",
-    "install": "tsc",
-    "postinstall": "npm run copyNonJsFiles",
+    "preprepare": "rimraf prod",
+    "prepare": "tsc",
+    "postprepare": "npm run copyNonJsFiles",
     "copyNonJsFiles": "copyfiles .env web/views/* web/static/**/* prod",
-    "pretypescript:dev": "npm run install",
-    "typescript:dev": "run-p typescriptInWatch NonJsWatch",
+    "prerun:dev": "npm run prepare",
+    "run:dev": "run-p typescriptInWatch NonJsWatch",
     "typescriptInWatch": "tsc -w",
     "NonJsWatch": "npm-watch copyNonJsFiles",
-    "migrate": "sequelize db:migrate"
+    "migrate": "sequelize db:migrate",
+
+    "prerun:prod": "npm run prepare",
+    "run:prod": "ts-node index.ts"
   },
   "author": "Igor Kokorin",
   "license": "ISC",

@@ -2,18 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Message = sequelize.define('Message', {
     fullName: {
-      type: DataTypes.STRING(50),
-      allowNulls: false,
-      validate: {
-        min: 1
-      }
+      type: DataTypes.STRING
     },
     text: { 
-      type: DataTypes.STRING(100),
-      allowNulls: false,
-      validate: {
-        min: 1
-      }
+      type: DataTypes.STRING
     }
   }, {});
   Message.associate = function(models) {
